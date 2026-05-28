@@ -4,7 +4,9 @@ import java.util.List;
 
 public interface JobService {
 
-    List<Job> findALlJobs();
+    List<Job> findAllJobs();
 
     void createJob(Job job);
+
+    Job getJobById(Long id);
 }

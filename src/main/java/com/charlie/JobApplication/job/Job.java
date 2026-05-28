@@ -11,4 +11,9 @@ public class Job {
     private Integer minSalary;
     private Integer maxSalary;
     private String location;
+
+    public Job(Long id, String title) {
+        this.id = id;
+        this.title = title;
+    }
 }
