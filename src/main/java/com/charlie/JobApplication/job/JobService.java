@@ -1,5 +1,7 @@
 package com.charlie.JobApplication.job;
 
+import org.springframework.http.ResponseEntity;
+
 import java.util.List;
 
 public interface JobService {
@@ -9,4 +11,6 @@ public interface JobService {
     void createJob(Job job);
 
     Job getJobById(Long id);
+
+    ResponseEntity<String> deleteJobById(Long id);
 }
