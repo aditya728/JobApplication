@@ -37,13 +37,31 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public ResponseEntity<String> deleteJobById(Long id) {
+    public boolean deleteJobById(Long id) {
         for(Job job : jobs){
             if(job.getId().equals(id)){
                 jobs.remove(job);
-                return new ResponseEntity<>("Job deleted successfully", HttpStatus.OK);
+                return true;
             }
         }
-        return new ResponseEntity<>("Job with ID: " + id + " does not exist.", HttpStatus.NOT_FOUND);
+        return false;
+    }
+
+    @Override
+    public boolean updateJobById(Long id, Job updatedJob) {
+
+        for(Job job : jobs) {
+            if (job.getId().equals(id)) {
+
+                job.setTitle(updatedJob.getTitle());
+                job.setDescription((updatedJob.getDescription()));
+                job.setLocation(updatedJob.getDescription());
+                job.setMinSalary(updatedJob.getMinSalary());
+                job.setMaxSalary(updatedJob.getMaxSalary());
+
+                return true;
+            }
+        }
+        return false;
     }
 }
