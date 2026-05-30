@@ -1,6 +1,7 @@
 package com.charlie.JobApplication.job.impl;
 
 import com.charlie.JobApplication.job.Job;
+import com.charlie.JobApplication.job.JobRepository;
 import com.charlie.JobApplication.job.JobService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,41 +9,38 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class JobServiceImpl implements JobService {
 
-    List<Job> jobs = new ArrayList<>();
-    private Long nextId = 1L;
+    JobRepository jobRepo;
+
+    public JobServiceImpl(JobRepository jobRepo){
+        this.jobRepo = jobRepo;
+    }
 
     @Override
     public List<Job> findAllJobs() {
-        return jobs;
+        return jobRepo.findAll();
     }
 
     @Override
     public void createJob(Job job) {
-        job.setId(nextId++);
-        jobs.add(job);
+//        job.setId(nextId++);
+        jobRepo.save(job);
     }
 
     @Override
     public Job getJobById(Long id) {
-        for(Job job : jobs){
-            if(job.getId().equals(id)){
-                return job;
-            }
-        }
-        return null;
+        return jobRepo.findById(id).orElse(null);
     }
 
     @Override
     public boolean deleteJobById(Long id) {
-        for(Job job : jobs){
-            if(job.getId().equals(id)){
-                jobs.remove(job);
-                return true;
-            }
+        if(jobRepo.existsById(id)){
+            jobRepo.deleteById(id);
+            return true;
         }
         return false;
     }
@@ -50,17 +48,20 @@ public class JobServiceImpl implements JobService {
     @Override
     public boolean updateJobById(Long id, Job updatedJob) {
 
-        for(Job job : jobs) {
-            if (job.getId().equals(id)) {
+        Optional<Job> optionalJob = jobRepo.findById(id);
 
-                job.setTitle(updatedJob.getTitle());
-                job.setDescription((updatedJob.getDescription()));
-                job.setLocation(updatedJob.getDescription());
-                job.setMinSalary(updatedJob.getMinSalary());
-                job.setMaxSalary(updatedJob.getMaxSalary());
+        if (optionalJob.isPresent()) {
+            Job job = optionalJob.get();
 
-                return true;
-            }
+            job.setTitle(updatedJob.getTitle());
+            job.setDescription((updatedJob.getDescription()));
+            job.setLocation(updatedJob.getLocation());
+            job.setMinSalary(updatedJob.getMinSalary());
+            job.setMaxSalary(updatedJob.getMaxSalary());
+
+            jobRepo.save(job);
+
+            return true;
         }
         return false;
     }
