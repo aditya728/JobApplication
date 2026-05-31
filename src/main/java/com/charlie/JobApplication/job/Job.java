@@ -1,9 +1,13 @@
 package com.charlie.JobApplication.job;
 
+import com.charlie.JobApplication.company.Company;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
 @Entity
 public class Job {
 
@@ -15,6 +19,9 @@ public class Job {
     private Integer minSalary;
     private Integer maxSalary;
     private String location;
+
+    @ManyToOne
+    private Company company;
 
     /*
     A noArg Constructor is needed as JPA needs to create instances of entity class while retrieval of data

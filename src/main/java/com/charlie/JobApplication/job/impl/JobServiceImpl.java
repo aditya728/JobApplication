@@ -5,6 +5,7 @@ import com.charlie.JobApplication.job.JobRepository;
 import com.charlie.JobApplication.job.JobService;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +25,7 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public void createJob(Job job) {
-//        job.setId(nextId++);
+        System.out.println(job.getCompany());
         jobRepo.save(job);
     }
 
