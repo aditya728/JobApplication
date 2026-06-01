@@ -2,10 +2,7 @@ package com.charlie.JobApplication.review;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,7 +30,22 @@ public class ReviewController {
     @GetMapping
     public ResponseEntity<List<Review>> getAllReviewsForCompany(@PathVariable Long companyId){
         List<Review> reviews = reviewService.getAllReviewsForCompany(companyId);
-
         return new ResponseEntity<>(reviews, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<String> postReviewForCompany(@PathVariable Long companyId, @RequestBody Review review){
+        reviewService.postReviewForCompany(companyId, review);
+        return new ResponseEntity<>("Review added successfully", HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{reviewId}")
+    public ResponseEntity<Review> getReviewById(@PathVariable Long companyId, @PathVariable Long reviewId){
+        Review review = reviewService.getReviewById(companyId, reviewId);
+
+        if(review != null){
+            return new ResponseEntity<>(review, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

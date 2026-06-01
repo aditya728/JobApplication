@@ -25,7 +25,6 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public void createJob(Job job) {
-        System.out.println(job.getCompany());
         jobRepo.save(job);
     }
 
