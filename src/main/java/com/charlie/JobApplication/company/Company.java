@@ -4,6 +4,7 @@ import com.charlie.JobApplication.job.Job;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import com.charlie.JobApplication.review.Review;
 
 import java.util.List;
 
@@ -27,8 +28,12 @@ public class Company {
     3. Added JsonIgnore at this point because if not added then while json coversion, it will go in a infinite loop
        eg.: Job has company & company has jobs again and so on
      */
+    @JsonIgnore
     @OneToMany(mappedBy = "company",
     cascade = CascadeType.REMOVE)
-    @JsonIgnore
     private List<Job> jobs;
+
+    @OneToMany(mappedBy = "company",
+    cascade = CascadeType.REMOVE)
+    private List<Review> reviews;
 }
