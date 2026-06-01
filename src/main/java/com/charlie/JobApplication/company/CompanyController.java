@@ -56,4 +56,14 @@ public class CompanyController {
         return new ResponseEntity<>("Company with Id: "+ id + " not found", HttpStatus.NOT_FOUND);
     }
 
+    //For Review Feature
+    //GET    /companies/{companyId}/reviews
+    //
+    //POST   /companies/{companyId}/reviews
+    //
+    //GET    /companies/{companyId}/reviews/{reviewId}
+    //
+    //PUT    /companies/{companyId}/reviews/{reviewId}
+    //
+    //DELETE /companies/{companyId}/reviews/{reviewId}
 }

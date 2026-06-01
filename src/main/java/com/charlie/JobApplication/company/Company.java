@@ -27,7 +27,8 @@ public class Company {
     3. Added JsonIgnore at this point because if not added then while json coversion, it will go in a infinite loop
        eg.: Job has company & company has jobs again and so on
      */
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company",
+    cascade = CascadeType.REMOVE)
     @JsonIgnore
     private List<Job> jobs;
 }
