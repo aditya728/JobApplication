@@ -9,7 +9,11 @@ public interface ReviewService {
 
     List<Review> getAllReviewsForCompany(Long companyId);
 
-    void postReviewForCompany(Long companyId, Review review);
+    boolean postReviewForCompany(Long companyId, Review review);
 
-    public Review getReviewById(@PathVariable Long companyId, @PathVariable Long reviewId);
+    Review getReviewById(@PathVariable Long companyId, @PathVariable Long reviewId);
+
+    boolean updateReviewById(Long companyId, Long reviewId, Review review);
+
+    boolean deleteReviewById(Long companyId, Long reviewId);
 }
